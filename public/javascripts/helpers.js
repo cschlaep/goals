@@ -40,6 +40,7 @@ var getOverlappingColumn = function(position, params, cols, chartMargin) {
 var normalizeRoll = function(roll) {
 	result = -1*roll + Math.PI/2;
 	result = result*(100/(Math.PI));
+	console.log(result);
 	if (result > 100) {
 		return 100;
 	}
@@ -74,8 +75,8 @@ var getMaxValue = function(values) {
 	return currentMax;
 }
 
-var getDataArray = function(values) {
-	var result = ['data1'];
+var getDataArray = function(set, values) {
+	var result = ['data'+set.toString()];
 	for (var i=0; i<values.length; i++) {
 		result.push(values[i].value);
 	}
@@ -88,8 +89,8 @@ var normalizeHeight = function(max, height, top, position) {
 
 // PIE
 
-var incrementSlice = function(roll, data) {
-	var speed = (roll-50)/30;
+var incrementSlice = function(roll, data, tot) {
+	var speed = (data[1]/tot)*(roll-50)/20;
 	if (data[1] + speed < 0) {
 		data[1] = 0;
 	}

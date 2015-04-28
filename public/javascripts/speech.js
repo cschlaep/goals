@@ -22,6 +22,15 @@ var processSpeech = function(transcript) {
         $(".pie-btn").trigger("switch");
           processed = true;
       }
+      else if (userSaid('data one',transcript)) {
+        currentSet = 1;
+      }
+      else if (userSaid('data two',transcript) || userSaid('data to', transcript)) {
+        currentSet = 2;
+      }
+      else if (userSaid('data three',transcript) || userSaid('data 3', transcript)) {
+        currentSet = 3;
+      }
   }
     return processed;
 }

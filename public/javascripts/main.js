@@ -7,6 +7,7 @@ var svgBottom = 74;
 var params = [svgMargin,svgWidth,svgTop,svgHeight,svgBottom];
 
 var currentType = 'bar';
+var currentSet = 1;
 
 $(document).ready(function() {
 
@@ -24,7 +25,8 @@ $(document).ready(function() {
 	            ['data2', 40, 150, 90, 100, 50, 30],
 	            ['data3', 80, 100, 130, 60, 60, 100],
 	        ],
-	        type: 'bar'
+	        type: 'bar',
+	        order: null
 	    },
 	    bar: {
 	        width: {
@@ -40,6 +42,8 @@ $(document).ready(function() {
 	var currentDec = 0;
 
 	Leap.loop({ hand: function(hand) {
+
+		console.log(currentSet);
 
 		var cursorPosition = hand.screenPosition();
 		cursorPosition[0] = cursorPosition[0] - 100;
@@ -91,6 +95,11 @@ $(document).ready(function() {
 
 		// CONTROL FOR BAR //
 		else if (currentType == 'bar' || currentType == 'line') {
+			if (counter < 3) {
+				counter = counter+1;
+			} else {
+				counter = 0;
+			}
 			var maxVal = getMaxValue(chart.data()[0].values);
 			var numExtended = getExtendedFingers(hand);
 
@@ -98,7 +107,7 @@ $(document).ready(function() {
 				var numberOfColumns = chart.data()[0].values.length;
 				var colNumber = getOverlappingColumn(cursorPosition, params, numberOfColumns, 60)
 				if (colNumber) {
-					var data = getDataArray(chart.data()[0].values);
+					var data = getDataArray(currentSet, chart.data()[currentSet].values);
 					var newValue = normalizeHeight(maxVal, svgHeight, svgTop, cursorPosition[1]);
 
 					data[colNumber] = newValue;
@@ -112,20 +121,30 @@ $(document).ready(function() {
 
 		// CONTROL FOR PIE //
 		else if (currentType == 'pie') {
+			if (counter < 3) {
+				counter = counter+1;
+			} else {
+				counter = 0;
+			}
             var numExtended = getExtendedFingers(hand);
 
-            if (numExtended > 0) {
-                var allData = currentChart.data();
-                var data = [numExtended.toString(), allData[numExtended-1].values[0].value];
+            if (counter == 0 && numExtended > 0) {
+                var allData = chart.data();
+                var tot = 0
+                for (var i = 0; i<allData.length; i++) {
+                	tot = tot+allData[i].values[0].value
+                }
+                var data = ["data"+currentSet.toString(), allData[currentSet-1].values[0].value];
                 var roll = normalizeRoll(hand.roll());
-                var newData = incrementSlice(roll, data);
+                var newData = incrementSlice(roll, data, tot);
 
                 var finalData = getPieData(allData);
                 // console.log(newData);
-                finalData[numExtended-1] = newData;
+                finalData[currentSet-1] = newData;
 
-                currentChart.load({
-                    columns: finalData
+                chart.load({
+                    columns: finalData,
+                    order: null
                 });
 
             }
@@ -139,19 +158,19 @@ $(document).ready(function() {
 		chart.transform('gauge', ['data1']);
 	});
 
-	$(".bar-btn").on("switch", function() {
+	$(".bar-btn").on("click", function() {
 		$('h1').html("Bar Chart");
 		currentType = 'bar';
 		chart.transform('bar', ['data1', 'data2', 'data3']);
 	});
 
-	$(".line-btn").on("switch", function() {
+	$(".line-btn").on("click", function() {
 		$('h1').html("Line Chart");
 		currentType = 'line';
 		chart.transform('line', ['data1', 'data2', 'data3']);
 	});
 
-	$(".pie-btn").on("switch", function() {
+	$(".pie-btn").on("click", function() {
 		$('h1').html("Pie Chart");
 		currentType = 'pie';
 		chart.transform('pie', ['data1', 'data2', 'data3']);
