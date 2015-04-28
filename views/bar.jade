@@ -1,0 +1,11 @@
+extends layout
+
+block content
+	script(src='/javascripts/bar.js')
+	
+	.chart-container
+		h1 Bar Chart
+		.bar
+			#bar
+
+		p.bar-desc Hover your hand over the chart to begin adjusting.  Move your hand up and down to alter the height of a bar.  The bar you are adjusting corresponds to the amount of fingers you have extended; if one finger is extended, you'll be adjusting bar 1, two fingers for bar 2, and so on.  Close your fist to stop editing.

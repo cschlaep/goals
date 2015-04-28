@@ -1,0 +1,11 @@
+extends layout
+
+block content
+	script(src='/javascripts/pie.js')
+	
+	.chart-container
+		h1 Pie Chart
+		.pie
+			#pie
+
+		p.pie-desc Hover your hand over the chart to begin adjusting.  The number of extended fingers corresponds to the slice you will be manipulating.  To make a slice bigger, rotate your hand clockwise; to make it smaller, rotate counterclockwise.  Close your fist to stop editing.

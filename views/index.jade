@@ -1,5 +1,23 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	script(src='/javascripts/main.js')
+	script(src='/javascripts/speech.js')
+	
+	.chart-container
+		h1 Bar Chart
+		h5 SPEECH DEBUG: ready
+		.chart
+			#chart
+
+		p Hover your hand over the chart and rotate to adjust.  Make large adjustments with your hand open, and fine tune with your hand closed.
+
+		//- h1 Pie Chart
+		//- .pie
+		//- 	#pie
+
+		//- h1 Bar Chart
+		//- .bar
+		//- 	#bar
+
+

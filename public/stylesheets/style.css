@@ -6,3 +6,30 @@ body {
 a {
   color: #00B7FF;
 }
+
+.gauge, .pie, .chart {
+	margin-bottom: 50px;
+}
+
+.chart-container {
+	margin-left: 100px;
+}
+
+svg {
+	border-radius: 6px;
+	padding: 20px;
+	box-sizing: content-box !important;
+}
+
+.bar-desc, .line-desc {
+	margin-top: 40px;
+	margin-right: 100px;
+}
+
+.pie-desc {
+	margin-right: 100px;
+}
+
+.highlighted {
+	background-color: "lightsteelblue" !important;
+}

@@ -1,7 +1,49 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+	head
+		title= title
+
+		// stylesheets
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(rel='stylesheet', href='/lib/famous.css')
+		link(rel='stylesheet', href='/lib/bootstrap.css')
+		link(rel='stylesheet', href='/lib/c3.css')
+
+		// jquery
+		script(src="/lib/jquery.min.js")
+
+		// d3 and c3
+		script(src='/lib/d3.js')
+		script(src='/lib/c3.js')
+
+		// backbone
+		script(src='/lib/underscore.js')
+		script(src='/lib/backbone.js')
+
+		//bootstrap
+		script(src='/lib/bootstrap.min.js')
+
+		// famous
+		script(src='/lib/famous.min.js')
+
+		// leap
+		script(src='/lib/leap.min.js')
+		script(src='/lib/leap-plugins.min.js')
+
+		// app scripts
+		script(src='/javascripts/helpers.js')
+		script(src='/javascripts/cursor.js')
+
+	body
+		nav.navbar.navbar-default
+			.container-fluid
+				.navbar-header
+					a.navbar-brand LeapChart
+				.collapse.navbar-collapse
+					button.btn.btn-default.navbar-btn.gauge-btn(type="button") Gauge
+					button.btn.btn-default.navbar-btn.bar-btn(type="button", style="margin-left: 10px") Bar
+					button.btn.btn-default.navbar-btn.line-btn(type="button", style="margin-left: 10px") Line
+					button.btn.btn-default.navbar-btn.pie-btn(type="button", style="margin-left: 10px") Pie
+
+
+		block content
